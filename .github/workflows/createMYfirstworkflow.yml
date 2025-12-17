@@ -22,6 +22,6 @@ jobs:
        run: |
          pwd
          ls -ltr
-         hostnaeme      
+         hostname      
 
        
