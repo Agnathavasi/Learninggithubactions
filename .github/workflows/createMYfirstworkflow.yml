@@ -24,4 +24,22 @@ jobs:
          echo "Hi From Job2"
          echo "Date: `date`"
          sleep 20s
-        
+ job3:
+   name: JOB3
+   needs: job1
+   runs-on: ubuntu-latest
+   steps:
+     - name: Running on Single Dependencies
+       run: sleep 10
+ job4:
+   name: JOB4
+   needs: [job1,job2,job3]
+   runs-on: ubuntu-latest
+   steps:
+      - name: Running on Multiple Dependencies
+        run: sleep 10
+    
+
+
+
+
