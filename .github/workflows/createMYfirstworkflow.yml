@@ -4,11 +4,24 @@ on: push
 
 jobs:
  job1:
-   name: Job
+   name: JOB1
    runs-on: ubuntu-latest
    steps:
      - name: Running Single Command in Job
        run: echo "Hi, My first job command"
      - name: Checking Os Release
        run: cat /etc/os-release
-  
+     - name: Calling Sleep
+       run: sleep 20s
+ job2:
+   name: JOB2
+   runs-on: ubuntu-latest
+   steps:
+     - name: Getting Hostname for Runner
+       run: hostname
+     - name: Runing multiple commands
+       run: |
+         echo "Hi From Job2"
+         echo "Date: `date`"
+         sleep 20s
+        
