@@ -27,27 +27,39 @@ jobs:
          echo `hostname` > artifacts/hostname.txt
          hostname
      - name: Upload Single File
-       uses: actions/upload-artifact@v4
+       uses: actions/upload-artifact@v5
        with:
          name: single_file
          path: ./myfile.txt
      - name: Upload from Directory
-       uses: actions/upload-artifact@v4
+       uses: actions/upload-artifact@v5
        with:
          path: |
             ./myfile.txt
             artifacts/
          overwrite: true
      - name: Upload multiple files with Exclusions
-       uses: actions/upload-artifact@v4
+       uses: actions/upload-artifact@v5
        with:
          path: |
              ./myfile.txt
              artifacts/
              !**/hostname.txt
          overwrite: true
-           
-         
-         
-
-       
+ job2:
+   name: JOB2
+   runs-on: ubuntu-latest
+   steps:
+     - name: Before download file
+       run: |
+         pwd
+         ls -ltr          
+     - name: Download file
+       uses: actions/download-artifact@v5
+       with:
+         name: single_file
+         path: ./myfile.txt
+     - name: After downloading file
+       run: |
+         pwd
+         ls -ltr          
