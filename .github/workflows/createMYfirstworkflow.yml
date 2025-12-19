@@ -82,3 +82,33 @@ jobs:
        run: |
          pwd
          ls -ltr          
+ job4:
+   name: JOB4
+   needs: job1
+   runs-on: ubuntu-latest
+   steps:
+     - name: Create Directories
+       run: |
+         mkdir -p single_file
+         mkdir -p directory_files
+     - name: Before download file
+       run: |
+         pwd
+         ls -ltr  
+     - name: Download file
+       uses: actions/download-artifact@v5
+       with:
+         name: single_file
+         path: single_file
+     - name: Download Directory
+       uses: actions/download-artifact@v5
+       with:
+         name: directory_upload
+         path: directory_files
+     - name: After downloading directory
+       run: |
+         pwd
+         echo " Checking Single File "
+         ls -ltr single_file
+         echo " Checking Directory Files "
+         ls -ltr directory_files
