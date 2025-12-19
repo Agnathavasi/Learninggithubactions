@@ -43,8 +43,8 @@ jobs:
        with:
          path: |
              ./myfile.txt
-             !/**/hostname.txt
              artifacts/
+             !**/hostname.txt
            
          
          
