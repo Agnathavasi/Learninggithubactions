@@ -37,7 +37,7 @@ jobs:
          path: |
             ./myfile.txt
             artifacts/
-
+         overwrite: true
      - name: Upload multiple files with Exclusions
        uses: actions/upload-artifact@v4
        with:
@@ -45,6 +45,7 @@ jobs:
              ./myfile.txt
              artifacts/
              !**/hostname.txt
+         overwrite: true
            
          
          
