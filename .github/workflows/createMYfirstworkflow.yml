@@ -52,7 +52,4 @@ jobs:
      - name: After downloading file
        run: |
          pwd
-         ls -ltr          
- 
-         echo " Checking Single File "
-         ls -ltr single_file
+         ls -ltr
