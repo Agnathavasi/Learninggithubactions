@@ -6,8 +6,6 @@ on:
  #schedule:
   #- cron: '5 * * * *'
   branches:
-     - dev
-     - 'feature-*'
      - main
  pull_request:
   branches:
@@ -58,4 +56,4 @@ jobs:
          ls -ltr
 
      - name: Step to add Demo PR
-       run: exit 1
+       run: exit 0
