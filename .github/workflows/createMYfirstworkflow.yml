@@ -56,5 +56,3 @@ jobs:
  
          echo " Checking Single File "
          ls -ltr single_file
-         echo " Checking Directory Files "
-         ls -ltr directory_files
