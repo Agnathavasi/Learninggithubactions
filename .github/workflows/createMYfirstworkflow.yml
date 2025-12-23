@@ -73,6 +73,7 @@ jobs:
   stage:
     name: STAGE
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/dev'
     environment: 
        name: staging
     steps:
@@ -87,6 +88,7 @@ jobs:
   production:
     name: PRODUCTION
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/main'
     environment: 
        name: production
     steps:
