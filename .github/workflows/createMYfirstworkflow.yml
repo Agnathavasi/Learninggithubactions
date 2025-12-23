@@ -58,3 +58,15 @@ jobs:
         echo "[INFO] Deployment running for $ENV_TYPE Environment with $APP_USER"
         echo "[INFO] Deployed Applcation is runing on Port $APP_PORT"
         echo "[INFO] Deployed Applcation Secret ${{ secrets.APP_SECRET }} "
+ job3:
+    name: JOB3
+    runs_need: ubuntu-latest
+    steps:
+      - name: Referring Context Variables
+        run: |
+          echo "${{ github.actor }}"
+          echo "${{ github.action }}"
+          echo "${{ github.event.name }}"
+          echo "${{ runner.name }}"
+          echo "${{ github.run_number }}"
+      
