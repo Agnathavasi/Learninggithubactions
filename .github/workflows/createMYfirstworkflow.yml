@@ -1,95 +1,97 @@
 name: my-first-workflow
-#To get trigger on every push in the repos 
-on: 
- push:
- #workflow_dispatch:
- #schedule:
-  #- cron: '5 * * * *'
-  branches:
-     - main
- pull_request:
-  branches:
+
+on:
+  push:
+    branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Enabled for manual testing
+
 env:
   ENV_TYPE: DEV
   APP_USER: Testuser
   APP_PORT: 80
+
 jobs:
- job1:
-   name: JOB1
-   runs-on: ubuntu-latest
-   steps:
-     - name: step - 1
-       run: |
-         pwd
-         ls -ltr
-         hostname
-     - name: Step - 2 Checkout
-       uses: actions/checkout@v6.0.1
-     - name: step - 3
-       run: |
-         echo `pwd` > myfile.txt
-         ls -ltr
-         mkdir artifacts
-         echo `ls -ltr` > artifacts/list.txt
-         echo `hostname` > artifacts/hostname.txt
-         hostname
-     - name: Upload Single File
-       uses: actions/upload-artifact@v5
-       with:
-         name: single_file
-         path: ./myfile.txt
-    
- job2:
-   name: JOB2
-   needs: job1
-   runs-on: ubuntu-latest
-   steps:
-     - name: Before download file
-       run: |
-         pwd
-         ls -ltr          
-     - name: Download Single file
-       uses: actions/download-artifact@v5
-       with:
-         name: single_file
-     - name: Refereeing Environment Variables
-       run: |
-        echo "[INFO] Deployment running for $ENV_TYPE Environment with $APP_USER"
-        echo "[INFO] Deployed Applcation is runing on Port $APP_PORT"
-        echo "[INFO] Deployed Applcation Secret ${{ secrets.APP_SECRET }} "
- job3:
+  job1:
+    name: JOB1
+    runs-on: ubuntu-latest
+    steps:
+      - name: step - 1
+        run: |
+          pwd
+          ls -ltr
+          hostname
+      - name: Step - 2 Checkout
+        uses: actions/checkout@v4
+      - name: step - 3
+        run: |
+          echo $(pwd) > myfile.txt
+          ls -ltr
+          mkdir -p artifacts
+          ls -ltr > artifacts/list.txt
+          hostname > artifacts/hostname.txt
+      - name: Upload Single File
+        uses: actions/upload-artifact@v4
+        with:
+          name: single_file
+          path: ./myfile.txt
+
+  job2:
+    name: JOB2
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Before download file
+        run: |
+          pwd
+          ls -ltr          
+      - name: Download Single file
+        uses: actions/download-artifact@v4
+        with:
+          name: single_file
+      - name: Referencing Environment Variables
+        run: |
+          echo "[INFO] Deployment running for ${{ env.ENV_TYPE }} Environment with ${{ env.APP_USER }}"
+          echo "[INFO] Deployed Application is running on Port ${{ env.APP_PORT }}"
+          echo "[INFO] Deployed Application Secret ${{ secrets.APP_SECRET }}"
+
+  job3:
     name: JOB3
     runs-on: ubuntu-latest
     steps:
       - name: Referring Context Variables
         run: |
-          echo "${{ github.actor }}"
-          echo "${{ github.action }}"
-          echo "${{ github.event_name }}"
-          echo "${{ runner.name }}"
-          echo "${{ github.run_number }}"
- stage:
+          echo "Actor: ${{ github.actor }}"
+          echo "Action: ${{ github.action }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Runner: ${{ runner.os }}"
+          echo "Run Number: ${{ github.run_number }}"
+
+  stage:
     name: STAGE
     runs-on: ubuntu-latest
+    environment: staging
     steps:
-      - name: Refering Environment varaiables
+      - name: Referring Environment variables
         run: |
-         echo "[INFO] Deployment Environment ${{ vars.HOST }} with User ${{ vars.USER }}"
-      - name: Refering Environment Passwords
+          echo "[INFO] Deployment Host: ${{ vars.HOST }}"
+          echo "[INFO] Deployment User: ${{ vars.USER }}"
+      - name: Referring Environment Passwords
         run: |
-         echo "[INFO] Deployment User ${{ vars.USER }} Password is ${{ secrets.PASSWORD }}"
-    environment: 
-        name: staging
- production:
+          echo "[INFO] User ${{ vars.USER }} Password is ${{ secrets.PASSWORD }}"
+
+  production:
     name: PRODUCTION
     runs-on: ubuntu-latest
+    environment: production
     steps:
-      - name: Refering Environment varaiables
+      - name: Referring Environment variables
         run: |
-         echo "[INFO] Deployment Environment ${{ vars.HOST }} with User ${{ vars.USER }}"
-      - name: Refering Environment Passwords
+          echo "[INFO] Deployment Host: ${{ vars.HOST }}"
+          echo "[INFO] Deployment User: ${{ vars.USER }}"
+      - name: Referring Environment Passwords
         run: |
-         echo "[INFO] Deployment User ${{ vars.USER }}  Password is ${{ secrets.PASSWORD }}"
-    environment: 
-        name: production
+          echo "[INFO] User ${{ vars.USER }} Password is ${{ secrets.PASSWORD }}"
