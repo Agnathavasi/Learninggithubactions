@@ -94,7 +94,7 @@ jobs:
   production:
     name: PRODUCTION
     runs-on: ubuntu-latest
-    if: ref_name == 'main'
+    if: github.ref_name == 'main'
     environment: 
        name: production
     steps:
