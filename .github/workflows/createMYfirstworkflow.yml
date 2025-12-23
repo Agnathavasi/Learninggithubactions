@@ -70,7 +70,7 @@ jobs:
           echo "${{ runner.name }}"
           echo "${{ github.run_number }}"
  stage:
-    name: STAGING
+    name: staging
     runs-on: ubuntu-latest
     steps:
       - name: Refering Environment varaiables
