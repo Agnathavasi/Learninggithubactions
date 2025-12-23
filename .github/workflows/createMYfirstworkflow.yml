@@ -10,7 +10,10 @@ on:
  pull_request:
   branches:
       - main
-
+env:
+  ENV_TYPE: DEV
+  APP_USER: Testuser
+  APP_PORT: 80
 jobs:
  job1:
    name: JOB1
@@ -50,10 +53,7 @@ jobs:
        uses: actions/download-artifact@v5
        with:
          name: single_file
-     - name: After downloading file
+     - name: Refereeing Environment Variables
        run: |
-         pwd
-         ls -ltr
-
-     - name: Step to add Demo PR
-       run: exit 0
+        echo "[INFO] Deployment running for $ENV_TYPE Environment with $APP_USER"
+        echo "[INFO] Deployed Applcation is runing on Port $APP_PORT"
