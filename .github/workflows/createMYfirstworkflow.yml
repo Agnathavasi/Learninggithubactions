@@ -77,7 +77,7 @@ jobs:
   stage:
     name: STAGE
     runs-on: ubuntu-latest
-    if: github.head_ref == 'refs/head/dev'
+    if: github.head_ref == 'dev'
     environment: 
        name: staging
     steps:
