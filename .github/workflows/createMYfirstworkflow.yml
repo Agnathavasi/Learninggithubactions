@@ -57,4 +57,4 @@ jobs:
        run: |
         echo "[INFO] Deployment running for $ENV_TYPE Environment with $APP_USER"
         echo "[INFO] Deployed Applcation is runing on Port $APP_PORT"
-        echo "[INFO] Deployed Applcation Secret ${{ secrets.APP_SECRET }}
+        echo "[INFO] Deployed Applcation Secret ${{ secrets.APP_SECRET }} "
