@@ -75,10 +75,10 @@ jobs:
     steps:
       - name: Refering Environment varaiables
         run: |
-         echo "[INFO] Deployment Environment ${{vars.HOST}} with User ${{vars.USER}}"
+         echo "[INFO] Deployment Environment ${{ vars.HOST }} with User ${{ vars.USER }}"
       - name: Refering Environment Passwords
         run: |
-         echo "[INFO] Deployment User ${{vars.USER}} Password is ${{secrets.PASSWORD}}"
+         echo "[INFO] Deployment User ${{ vars.USER }} Password is ${{ secrets.PASSWORD }}"
     environment: 
         name: staging
  production:
@@ -87,10 +87,9 @@ jobs:
     steps:
       - name: Refering Environment varaiables
         run: |
-         echo "[INFO] Deployment Environment ${{vars.HOST}} with User ${{vars.USER}}"
+         echo "[INFO] Deployment Environment ${{ vars.HOST }} with User ${{ vars.USER }}"
       - name: Refering Environment Passwords
         run: |
-         echo "[INFO] Deployment User ${{vars.USER}} Password is ${{secrets.PASSWORD}}"
+         echo "[INFO] Deployment User ${{ vars.USER }}  Password is ${{ secrets.PASSWORD }}"
     environment: 
         name: production
-    
