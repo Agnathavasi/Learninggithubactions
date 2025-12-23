@@ -66,7 +66,7 @@ jobs:
         run: |
           echo "${{ github.actor }}"
           echo "${{ github.action }}"
-          echo "${{ github.event.name }}"
+          echo "${{ github.event_name }}"
           echo "${{ runner.name }}"
           echo "${{ github.run_number }}"
       
