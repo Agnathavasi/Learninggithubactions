@@ -60,7 +60,7 @@ jobs:
         echo "[INFO] Deployed Applcation Secret ${{ secrets.APP_SECRET }} "
  job3:
     name: JOB3
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Referring Context Variables
         run: |
