@@ -71,6 +71,7 @@ jobs:
           echo "Actor: ${{ github.actor }}"
           echo "Action: ${{ github.action }}"
           echo "Event: ${{ github.event_name }}"
+          echo "Branch: ${{ github.head_ref }} branch"
           echo "Runner: ${{ runner.os }}"
           echo "Run Number: ${{ github.run_number }}"
 
