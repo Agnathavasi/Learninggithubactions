@@ -78,7 +78,8 @@ jobs:
   stage:
     name: STAGE
     runs-on: ubuntu-latest
-    if: github.head_ref
+    #if: github.head_ref
+    if: github.event.pull_request.head.ref == 'dev' || github.ref_name == 'dev'
     environment: 
        name: staging
     steps:
