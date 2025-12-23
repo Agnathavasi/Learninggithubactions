@@ -2,7 +2,7 @@ name: my-first-workflow
 
 #To get trigger on every push in the repos 
 on: 
- push:
+  push:
  #workflow_dispatch:
  #schedule:
   #- cron: '5 * * * *'
