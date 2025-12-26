@@ -35,5 +35,5 @@ jobs:
         uses: actions/upload-artifact@v5.0.0
         with:
           name: junit-reports
-          path : reports
+          path : reports/
        
