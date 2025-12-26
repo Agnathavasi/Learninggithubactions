@@ -86,7 +86,8 @@ jobs:
      runs-on: ubuntu-latest
      needs: [ codeql,sonarqube]
      if: success()
-     outputs: steps.var.outputs.IMAGE_TAGS
+     outputs: 
+      image-tags: ${{ steps.var.outputs.IMAGE_TAGS }}
      steps:
         - name: checkout
           uses: actions/checkout@v6.0.1
