@@ -39,3 +39,25 @@ jobs:
           name: junit-reports
           path : reports/
        
+  codeql:
+     name: code Ql Security Scan
+     runs-on: ubuntu-latest
+     permissions:
+       actions: read
+       contents: read
+       security-events: write
+     strategy:
+       matrix:
+         language: [ 'python']
+     steps:
+       - name: checkout
+         uses: actions/checkout@v5.0.0
+       - name: Initilize Codeql
+         uses: github/codeql-action/init@v3
+         with:
+          languages: ${{ matrix.language }}
+       - name: CodeQl Analaysis
+         uses: github/codeql-action/analyze@v3
+         with:
+           category: security
+        

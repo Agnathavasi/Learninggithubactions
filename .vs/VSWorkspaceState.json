@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github",
+    "\\.github\\workflows"
   ],
-  "PreviewInSolutionExplorer": false
+  "SelectedNode": "\\.github\\workflows\\createMYfirstworkflow.yml",
+  "PreviewInSolutionExplorer": true
 }
