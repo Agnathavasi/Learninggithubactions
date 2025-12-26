@@ -8,11 +8,12 @@ on:
   #- cron: '5 * * * *'
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Enabled for manual testing
-  
+      - dev
+  workflow_dispatch: # Enabled for manual testing    
 jobs:
   unit_test:
     name: Running Unit Tests
@@ -29,5 +30,44 @@ jobs:
          python -m pip install --upgrade pip
          pip install -r requirements.txt
       - name: Run Unit Tests
-        run: pytest -v
- 
+        run: |
+          mkdir reports
+          pytest --junitxml=reports/juint-reports.xml --cov=. --cov-report=term-missing -v
+      - name: Upload Unit Test Report
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: junit-reports
+          path : reports/
+       
+  codeql:
+     name: code Ql Security Scan
+     runs-on: ubuntu-latest
+     permissions:
+       actions: read
+       contents: read
+       security-events: write
+     strategy:
+       matrix:
+         language: [ 'python']
+     steps:
+       - name: checkout
+         uses: actions/checkout@v5.0.0
+       - name: Initilize Codeql
+         uses: github/codeql-action/init@v3
+         with:
+          languages: ${{ matrix.language }}
+       - name: CodeQl Analaysis
+         uses: github/codeql-action/analyze@v3
+         with:
+           category: security
+  sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
