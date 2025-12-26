@@ -8,9 +8,11 @@ on:
   #- cron: '5 * * * *'
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
+      - dev
   workflow_dispatch: # Enabled for manual testing   
 jobs:
   unit_test:
