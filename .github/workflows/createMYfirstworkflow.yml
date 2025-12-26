@@ -8,9 +8,11 @@ on:
   #- cron: '5 * * * *'
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
+      - dev
   workflow_dispatch: # Enabled for manual testing   
 jobs:
   unit_test:
@@ -35,5 +37,5 @@ jobs:
         uses: actions/upload-artifact@v5.0.0
         with:
           name: junit-reports
-          path : reports
+          path : reports/
        
