@@ -133,10 +133,10 @@ jobs:
        - name: Docker Tag
          run: |
           IMAGE_TAG=${{ needs.buildimage.outputs.image-tags }}
-          docker image tag myprac:${{ steps.var.outputs.IMAGE_TAGS }} ${{ DOCKERHUB_USERNAME }}/app:$IMAGE_TAG
+          docker image tag myprac:${{ steps.var.outputs.IMAGE_TAGS }} ${{ secrets.DOCKERHUB_USERNAME }}/app:$IMAGE_TAG
        - name: Docker Image Push
          run: |
           IMAGE_TAG=${{ needs.buildimage.outputs.image-tags }}
-          docket image push ${{ DOCKERHUB_USERNAME }}/app:$IMAGE_TAG
+          docket image push ${{ secrets.DOCKERHUB_USERNAME }}/app:$IMAGE_TAG
          
 
