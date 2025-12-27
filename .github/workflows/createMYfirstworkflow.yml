@@ -128,8 +128,8 @@ jobs:
        -  name: docker login
           uses: docker/login-action@v3 # docker login -u username -p password
           with:
-            username: ${{ DOCKERHUB_USERNAME }}
-            password: ${{ DOCKERHUB_TOKEN }}
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
        - name: Docker Tag
          run: |
           IMAGE_TAG=${{ needs.buildimage.outputs.image-tags }}
