@@ -161,11 +161,13 @@ jobs:
        - name: Docker Tag
          run: |
           IMAGE_TAG=${{ needs.buildimage.outputs.image-tags }}
-          docker image tag myprac:$IMAGE_TAG ghcr.io/${{ GITHUB.repository_owner }}/app:$IMAGE_TAG
+          OWNER="$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')"   
+          docker image tag myprac:$IMAGE_TAG ghcr.io/$OWNER/app:$IMAGE_TAG
        - name: Docker Image Push
          run: |
           IMAGE_TAG=${{ needs.buildimage.outputs.image-tags }}
-          docker image push ghcr.io/${{ GITHUB.repository_owner }}/app:$IMAGE_TAG
-          docker image push ${{ secrets.DOCKERHUB_USERNAME }}/app:$IMAGE_TAG
+          OWNER="$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')" 
+          docker image push ghcr.io/$OWNER/app:$IMAGE_TAG
+          
          
 
