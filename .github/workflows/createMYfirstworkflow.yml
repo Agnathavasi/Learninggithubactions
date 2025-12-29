@@ -23,9 +23,9 @@ jobs:
     uses: Agnathavasi/reuse-workflows/.github/workflows/ci-pipeline.yaml@main
     with:
       run_codeql: true
-      run_sonarqube: true
-      run_buildimage: true
-      run_publishimagetoghcr: true
+      run_sonarqube: false
+      run_buildimage: flase
+      run_publishimagetoghcr: false
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -36,3 +36,15 @@ jobs:
      steps:
        - name: checkout
          uses: actions/checkout@v3
+       - name: Install kubectl
+         run: |
+          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+          kubectl version --client
+       - name: Configure Kubeconfig
+         run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          kubectl version
+          kubectl get nodes 
