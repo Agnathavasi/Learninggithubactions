@@ -26,7 +26,7 @@ jobs:
     with:
      run_codeql: true
      run_sonarqube: true
-     run_buildimage: false
+     run_buildimage: true
     secrets:
      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
