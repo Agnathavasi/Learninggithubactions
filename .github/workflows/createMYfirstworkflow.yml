@@ -23,10 +23,10 @@ jobs:
     uses: Agnathavasi/reuse-workflow/.github/workflows/ci-pipeline.yaml@main
     with:
       run_codeql: true
-      run_sonarqube: false
+      run_sonarqube: true
       run_buildimage: true
       run_publishimagetodokcerhub: false
-      run_publishimagetoghcr: false
+      run_publishimagetoghcr: true
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
