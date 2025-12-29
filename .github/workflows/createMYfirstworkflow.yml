@@ -14,10 +14,10 @@ on:
       - main
       - dev
   workflow_dispatch: # Enabled for manual testing
-  permissions:
-    security-events: write
-    actions: read
-    packages: write
+permissions:
+  security-events: write
+  actions: read
+  packages: write
     
 jobs:
   ci-pipeline-jobs:
