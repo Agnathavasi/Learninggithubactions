@@ -26,7 +26,7 @@ jobs:
       run_sonarqube: true
       run_buildimage: true
       run_publishimagetodokcerhub: false
-      run_publishimagetoghcr: false
+      run_publishimagetoghcr: true
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
