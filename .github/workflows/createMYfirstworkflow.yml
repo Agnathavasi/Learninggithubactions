@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   ci-pipeline-job:
-    uses: Agnathavasi/reuse-workflow/.github/workflows/ci-pipeline.yaml@main
+    uses: Agnathavasi/reuse-workflows/.github/workflows/ci-pipeline.yaml@main
     with:
       run_codeql: true
       run_sonarqube: true
