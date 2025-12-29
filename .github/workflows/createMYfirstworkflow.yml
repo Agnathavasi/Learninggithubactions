@@ -1,6 +1,6 @@
 name: my-first-workflow
 
-#To get trigger on every push in the repositories
+#To get trigger on every push in the repositories 
 on: 
   push:
  #workflow_dispatch:
