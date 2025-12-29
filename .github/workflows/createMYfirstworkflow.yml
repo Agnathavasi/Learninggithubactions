@@ -13,7 +13,12 @@ on:
     branches:
       - main
       - dev
-  workflow_dispatch: # Enabled for manual testing    
+  workflow_dispatch: # Enabled for manual testing
+  permissions:
+    security-events: write
+    actions: read
+    packages: write
+    
 jobs:
   ci-pipeline-jobs:
     uses: Agnathavasi/reuse-workflows/.github/workflows/ci-pipeline.yaml@main
