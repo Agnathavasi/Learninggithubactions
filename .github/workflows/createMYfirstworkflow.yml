@@ -24,7 +24,7 @@ jobs:
     with:
       run_codeql: true
       run_sonarqube: false
-      run_buildimage: flase
+      run_buildimage: false
       run_publishimagetoghcr: false
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
