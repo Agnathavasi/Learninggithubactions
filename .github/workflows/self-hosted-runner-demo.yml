@@ -1,36 +1,30 @@
-name: my-first-workflow
-
-#To get trigger on every push in the repositories
-on: 
+name: self-hosted-runner-demo
+on:
   push:
- #workflow_dispatch:
- #schedule:
-  #- cron: '5 * * * *'
     branches:
-      - main
       - dev
-  pull_request:
-    branches:
-      - main
-      - dev
-  workflow_dispatch: # Enabled for manual testing
-permissions:
-  security-events: write
-  actions: read
-  packages: write
-  contents: read
-    
 jobs:
-  ci-pipeline-jobs:
-    uses: Agnathavasi/reuse-workflows/.github/workflows/ci-pipeline.yaml@main
-    with:
-     run_codeql: true
-     run_sonarqube: true
-     run_buildimage: true
-    secrets:
-     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-     DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-     DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-    
-   
-   
+    demo-1:
+      name: Demo Job 1
+      runs-on: ubuntu-latest
+      steps:
+        - name: Display system information
+          run: |
+            echo "Hostname: $(hostname)"
+            echo "OS Version:"
+            lsb_release -a || cat /etc/os-release
+            echo "Runner Name: ${{ runner.name }}"
+            echo "Runner OS: ${{ runner.os }}"
+            #sleep 90
+    demo-2:
+      name: Demo job 2
+      runs-on: ubuntu-latest
+      steps:
+        - name: Display system information
+          run: |
+            echo "Hostname: $(hostname)"
+            echo "OS Version:"
+            lsb_release -a || cat /etc/os-release
+            echo "Runner Name: ${{ runner.name }}"
+            echo "Runner OS: ${{ runner.os }}"
+            #sleep 90
