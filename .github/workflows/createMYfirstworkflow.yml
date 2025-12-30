@@ -50,7 +50,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v5.0.0
       - name: setup helm
-        uses: azure/setup-helm#v3
+        uses: azure/setup-helm@v3
         with:
           version: v3.12.0
       - name: check helm version
