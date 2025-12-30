@@ -35,7 +35,6 @@ jobs:
      uses: Agnathavasi/reuse-workflows/.github/workflows/deploy-kubectl.yaml@main
      with:
       ENVIRONMENT: staging
-      NAMESPACE: ${{ vars.NAMESPACE}}
       IMAGENAME: ghcr.io/agnathavasi/app
      secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
