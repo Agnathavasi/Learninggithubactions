@@ -38,4 +38,10 @@ jobs:
       IMAGENAME: ghcr.io/agnathavasi/app
      secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
-     
+  selinium-test:
+     needs: deploy-with-kubectl
+     uses: Agnathavasi/reuse-workflows/.github/workflows/seliniuum-test.yaml@main
+     with:
+       ENVIRONMENT: staging
+
+   
