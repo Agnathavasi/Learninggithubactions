@@ -12,7 +12,9 @@ on:
    #   - main
 env:
   OCI_REGISTRY: ghcr.io
-  OCI_REPOSITORY: ${{ github.repository_owner}}/helm-charts
+  #OCI_REPOSITORY: ${{ github.repository_owner}}/helm-charts
+  OCI_REPOSITORY: agnathavasi/helm-charts
+  
 permissions:
   actions: read
   security-events: write
