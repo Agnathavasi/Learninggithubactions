@@ -42,4 +42,4 @@ jobs:
                 chmod 600 ~/.kube/config
              - name: Deploy Helm Chart
                run: |
-                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --namespace ${{ var.namespace }} --create-namespace --wait
+                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --namespace ${{ vars.namespace }} --create-namespace --wait
