@@ -57,3 +57,7 @@ jobs:
         run: helm version
       - name: helm lint
         run: helm lint charts/   
+      - name: Helm Package
+        run: |
+         cd charts
+         helm packagae .
