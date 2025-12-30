@@ -23,14 +23,17 @@ jobs:
     uses: Agnathavasi/reuse-workflows/.github/workflows/ci-pipeline.yaml@main
     with:
       run_codeql: true
-      run_sonarqube: false
-      run_buildimage: false
-      run_publishimagetoghcr: false
+      run_sonarqube: true
+      run_buildimage: true
+      run_publishimagetoghcr: true
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   deploy-with-kubectl:
+     environment: staging
+     env:
+       - ${{ var.NAMESPACE }}
      needs: ci-pipeline-job
      runs-on: arc-runner-set
      steps:
@@ -56,6 +59,16 @@ jobs:
        - name: update image name in deployment YAML
          run: |
           IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
-          IMAGE="ghcr.io/agnathavasi/app:${IMAGE_TAGS}"
+          export IMAGE="${{ inputs.IMAGE_NAME }}:${IMAGE_TAGS}"
           yq e '.spec.template.spec.containers[0].image = strenv(IMAGE)' manifests/deployment.yaml -i
           cat manifests/deployment.yaml
+       - name: create namespace if not exists
+         run: |
+          kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
+       - name: Deploy to Kubernetes Cluster
+         run: |
+          kubectl apply -f manifests/ -n $NAMESPACE
+       - name: verify deployment
+         run: |
+          kubectl rollout status deployment/thinknyxapp -n $NAMESPACE
+          kubectl get all -n $NAMESPACE
