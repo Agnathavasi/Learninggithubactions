@@ -53,13 +53,10 @@ jobs:
         uses: azure/setup-helm@v3
         with:
           version: v3.12.0
-      - name: Login to GHCR (OCI)
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.OCI_REGISTRY }} -u ${{ github.actor }} --password-stdin
       - name: Install yq
         run: |
-          sudo curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq
-          sudo chmod +x /usr/local/bin/yq
+           sudo curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq
+           sudo chmod +x /usr/local/bin/yq
       - name: check helm && yq version
         run: |
          helm version
@@ -70,7 +67,7 @@ jobs:
           export VERSION="0.1.0${IMAGE_TAGS}"
           yq e '.image.tag = strenv(IMAGE_TAGS)' charts/values.yaml -i
           yq e '.version = strenv(VERSION)' charts/Chart.yaml -i
-          yq e '.appversion = strenv(VERSION)' charts/Chart.yaml -i
+          yq e '.appversion = strenv(IMAGE_TAGS)' charts/Chart.yaml -i
           cat charts/Chart.yaml
           cat charts/values.yaml
       - name: helm lint
