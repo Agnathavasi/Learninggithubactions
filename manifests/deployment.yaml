@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: thinknyxapp
-          image: ghcr.io/agnathavasi/app:20565680023-d898f45
+          image: ghcr.io/agnathavasi/app:latest
           ports:
             - containerPort: 8000
           resources:
