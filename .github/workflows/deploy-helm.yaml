@@ -1,0 +1,45 @@
+name: Deploy Using Helm Charts
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+  workflow_dispatch:
+ #schedule:
+  #- cron: '5 * * * *'
+ # push:
+  #  branches:
+   #   - main
+env:
+  OCI_REGISTRY: ghcr.io
+  #OCI_REPOSITORY: ${{ github.repository_owner}}/helm-charts
+  OCI_REPOSITORY: agnathavasi/helm-charts
+  
+permissions:
+  packages: read
+  contents: read
+
+jobs:
+    deployusing-helmchart:
+         runs-on: arc-runner-set
+         environment: production
+         if: github.event.pull_request.merged == true
+         steps:
+             - name: Checkout Repo
+               uses: actions/checkout@v5.0.0
+             - name: setup helm
+               uses: azure/setup-helm@v3
+               with:
+                version: v3.12.0
+             - name: Login to GHCR (OCI)
+               run: |
+                echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.OCI_REGISTRY }} -u ${{ github.actor }} --password-stdin
+             - name: Configure Kubeconfig
+               run: |
+                mkdir -p ~/.kube
+                echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+                chmod 600 ~/.kube/config
+             - name: Deploy Helm Chart
+               run: |
+                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --namespace ${{ var.namespace }} --create-namespace --wait
