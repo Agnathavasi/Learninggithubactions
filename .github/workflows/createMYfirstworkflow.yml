@@ -40,7 +40,7 @@ jobs:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
   selinium-test:
     environment: staging
-    needs: ci-pipeline-job
+    needs: deploy-with-kubectl
     runs-on: arc-runner-set
     steps:
       - name: Checkout
@@ -68,7 +68,7 @@ jobs:
           mkdir -p reports
           pytest tests/ --html=reports/selinium-report.html --self-contained-html
       - name: Upload Selinium test reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: selinium-test-report
           path: reports/
