@@ -87,7 +87,8 @@ jobs:
         run: |
          export IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
          export VERSION="0.1.0${IMAGE_TAGS}"
-         helm push thinknyxapp-${VERSION}.tgz oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}
+         #helm push thinknyxapp-${VERSION}.tgz oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}
+         helm push thinknyxapp-*.*.tgz oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}
       - name: Logout to GHCR (OCI)
         run: helm registry logout ${{ env.OCI_REGISTRY }}
         
