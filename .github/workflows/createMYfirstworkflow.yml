@@ -33,7 +33,7 @@ jobs:
   deploy-with-kubectl:
      environment: staging
      env:
-       - ${{ var.NAMESPACE }}
+       NAMESPACE: ${{ vars.NAMESPACE }}
      needs: ci-pipeline-job
      runs-on: arc-runner-set
      steps:
