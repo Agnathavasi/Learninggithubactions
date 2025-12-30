@@ -10,7 +10,9 @@ on:
  # push:
   #  branches:
    #   - main
-
+env:
+  OCI_REGISTRY: ghcr.io
+  OCI_REPOSITORY: ${{ github.repository_owner}}/helm-charts
 permissions:
   actions: read
   security-events: write
@@ -78,12 +80,12 @@ jobs:
            ls -ltr .
       - name: Login to GHCR (OCI)
         run: |
-         echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io -u ${{ github.actor }} --password-stdin
+         echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.OCI_REGISTRY }} -u ${{ github.actor }} --password-stdin
       - name: Push helm charts to GHCR (OCI)
         run: |
          export IMAGE_TAGS="${{ github.run_id}}-${GITHUB_SHA::7}"
          export VERSION="0.1.0${IMAGE_TAGS}"
-         helm push thinknyxapp-${VERSION}.tgz oci://ghcr.io/agnathavasi/helm-charts
+         helm push thinknyxapp-${VERSION}.tgz oci://${{ env.OCI_REGISTRY }}/${{env.OCI_REPOSITORY}}
       - name: Logout to GHCR (OCI)
-        run: helm registry logout ghcr.io
+        run: helm registry logout ${{ env.OCI_REGISTRY }}
         
