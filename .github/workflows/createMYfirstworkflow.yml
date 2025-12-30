@@ -60,4 +60,4 @@ jobs:
       - name: Helm Package
         run: |
          cd charts
-         helm packagae .
+         helm package .
