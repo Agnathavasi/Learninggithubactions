@@ -40,6 +40,11 @@ jobs:
                 mkdir -p ~/.kube
                 echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
                 chmod 600 ~/.kube/config
+             - name: Reading Helm Charts
+               run: |
+                source HELMCHART-VERSION
+                echo "VERSION=$VERSION" >> $GITHUB_ENV
+                echo "Deploying Helm Chart Version: ${VERSION}"
              - name: Deploy Helm Chart
                run: |
-                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --insecure-skip-tls-verify --namespace ${{ vars.namespace }} --create-namespace --wait
+                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --version ${{ env.VERSION }} --insecure-skip-tls-verify --namespace ${{ vars.namespace }} --create-namespace --wait
