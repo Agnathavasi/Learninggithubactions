@@ -47,4 +47,4 @@ jobs:
                 echo "Deploying Helm Chart Version: ${VERSION}"
              - name: Deploy Helm Chart
                run: |
-                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --version ${{ env.VERSION }} --insecure-skip-tls-verify --namespace ${{ vars.namespace }} --create-namespace --wait
+                helm upgrade --install thinknyxapp  oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REPOSITORY }}/thinknyxapp --version ${{ env.VERSION }} --insecure-skip-tls-verify --namespace ${{ vars.namespace }}  --wait
